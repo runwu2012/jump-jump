@@ -106,8 +106,22 @@ docker-compose -f deployments/docker-compose.yaml -p jumpjump exec apiserver ./c
 使用 Swagger UI 提供了一个可调试文档，具体使用方法查看这个 [PR](https://github.com/jwma/jump-jump/pull/40)，希望这份文档能够帮助
 到大家！
 
-## 感谢
+##服务器部署具体注意点# edit by chenchen
+1. 根据http://t.majiawei.com/fk1ta3 的描述可以采用自行构建docker镜像或者直接从dockerhub拉取的方式来获取docker镜像,两者方法无明显区别.
+2. 启动的方式是根据docker-compose 来启动的,因此docker-compose,docker,能够拉取外网dockerhub上镜像等是正常启动的前提条件.
+3. 因为Django框架内有ALLOWED_H)STS的配置,因此docker-compose.yaml配置文件内jumpjump/apiserver 部分的配置必须开启ALLOWED_HOSTS,该参数不设置将启动报错.
+4. apiserver的environment参数内,根据服务器部署的特点,新增了几个参数配置.其中swagger配置参考https://github.com/jwma/jump-jump/pull/40
+   apiserver访问域名的配置:ALLOWED_HOSTS=176.1.90.201,i.richtj.com,i-admin.richtj.com 
+   swagger访问域名:API_DOC_HOST=176.1.90.201,i.richtj.com,i-admin.richtj.com
+   swagger 用户名密码 API_DOC_USERNAME=admin API_DOC_PASSWORD=admin
+5. 服务器启动控制命令:
+   启动 docker-compose -f deployments/docker-compose.yaml -p jumpjump up -d 
+   查看 docker-compose -f deployments/docker-compose.yaml -p jumpjump ps
+   停止 docker-cmopose -f deployments/docker-compose.yaml -p jumpjump stop
+   删除 docker-compose -f deployments/docker-compose.yaml -p jumpjump rm
 
-在这里感谢所有为 Jump Jump 提供建议和反馈 bug 的朋友们，有你们 Jump Jump 会变得更好！
+6. jumpjump遇到nginx反代需要注意nginx设置过程中 nginx 的server_name 参数和jumpjump的allowed_host参数相一致.
+
+
 
 ![MJ_STUDIO](http://rs.majiawei.com/b/20200714210656.png)

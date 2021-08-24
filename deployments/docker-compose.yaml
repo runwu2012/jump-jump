@@ -22,7 +22,10 @@ services:
       - J2_API_ADDR=0.0.0.0:8080
       - SECRET_KEY=YOUR_SECRET_KEY
       - GIN_MODE=release
-      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - ALLOWED_HOSTS=176.1.90.201,i.richtj.com,i-admin,richtj.com
+      - API_DOC_HOST=176.1.90.201,i.richtj.com,i-admin,richtj.com
+      - API_DOC_USERNAME=admin
+      - API_DOC_PASSWORD=admin
 
   landingserver:
     image: studiomj/jump-jump
